@@ -6,10 +6,11 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "STUDENTS")
-public class MyTable {
+public class StudentObj {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String name;
-    private String type;
+    private int age;
+    private String gender;
 }
