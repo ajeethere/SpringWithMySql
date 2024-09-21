@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class StudentsService {
@@ -20,5 +21,17 @@ public class StudentsService {
 
     public void addStudent(@RequestBody StudentObj studentObj){
         myRepository.save(studentObj);
+    }
+
+    public void deleteStudent(Integer id){
+        myRepository.deleteById(id);
+    }
+
+    public void updateStudent(@RequestBody StudentObj studentObj){
+        myRepository.save(studentObj);
+    }
+
+    public Optional<StudentObj> getStudentById(Integer id){
+        return myRepository.findById(id);
     }
 }
