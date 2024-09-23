@@ -1,14 +1,12 @@
 package com.springMySql.SpringMySql.errors;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
-@Setter
-@Getter
+@Data
 public class ErrorResponse {
 
     private HttpStatus status;
@@ -21,5 +19,4 @@ public class ErrorResponse {
         this.timeStamp = LocalDateTime.now();
         this.message = message;
     }
-
 }
