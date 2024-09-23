@@ -23,13 +23,17 @@ public class FileController {
 //        System.out.println(file.getContentType());
 //        System.out.println(file.getName());
 
-
-        if (file.isEmpty()) {
-            return new ResponseEntity<>(new ErrorResponse(HttpStatus.NO_CONTENT, "No file selected!"), HttpStatus.NO_CONTENT);
-        } else if (fileUploadHelper.uploadFile(file)) {
-            return ResponseEntity.ok("Working");
-        } else {
-            return new ResponseEntity<>(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to upload file!"), HttpStatus.INTERNAL_SERVER_ERROR);
+        try {
+            if (file.isEmpty()) {
+                return new ResponseEntity<>(new ErrorResponse(HttpStatus.NO_CONTENT, "No file selected!"), HttpStatus.NO_CONTENT);
+            } else if (fileUploadHelper.uploadFile(file)) {
+                return ResponseEntity.ok("Working");
+            } else {
+                return new ResponseEntity<>(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to upload file!"), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to upload file!:-" + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 }
