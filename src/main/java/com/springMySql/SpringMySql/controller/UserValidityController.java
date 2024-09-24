@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
 @RestController
 @RequestMapping("/user-validity")
 public class UserValidityController {
@@ -22,9 +20,8 @@ public class UserValidityController {
     }
 
     @GetMapping
-    public LocalDateTime getUserValidity() {
-        return LocalDateTime.now();
-//        return ResponseEntity.ok(userValidityService.getUserValidity());
+    public ResponseEntity<?> getUserValidity() {
+        return ResponseEntity.ok(userValidityService.getUserValidity());
     }
 
 }
