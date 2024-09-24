@@ -7,10 +7,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 
 
 @Component
 public class FileUploadHelper {
+
 
     private final String UPLOAD_DIR;
 
@@ -26,6 +28,26 @@ public class FileUploadHelper {
         boolean flag = false;
 
         try {
+            Files.copy(file.getInputStream(),
+                    Paths.get(UPLOAD_DIR + "/" + file.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            flag = true;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return flag;
+    }
+
+
+    public boolean uploadVideoFile(MultipartFile file) {
+        boolean flag = false;
+
+        try {
+            // Ensure the content type is a video
+            if (!Objects.requireNonNull(file.getContentType()).startsWith("video/")) {
+                throw new IllegalArgumentException("File is not a video");
+            }
+
             Files.copy(file.getInputStream(),
                     Paths.get(UPLOAD_DIR + "/" + file.getOriginalFilename()),
                     StandardCopyOption.REPLACE_EXISTING);

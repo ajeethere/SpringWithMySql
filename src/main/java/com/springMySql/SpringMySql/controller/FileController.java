@@ -35,4 +35,20 @@ public class FileController {
         }
 
     }
+    @PostMapping("/upload-video")
+    public ResponseEntity<?> uploadVideo(@RequestParam("file") MultipartFile file) {
+        try {
+            if (file.isEmpty()) {
+                return new ResponseEntity<>(new ErrorResponse(HttpStatus.NO_CONTENT, "No file selected!"), HttpStatus.NO_CONTENT);
+            } else if (fileUploadHelper.uploadVideoFile(file)) {
+//                return new ResponseEntity<>(new ErrorResponse(HttpStatus.OK,"File uploaded successfully!"),HttpStatus.OK);
+                return ResponseEntity.ok(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(Objects.requireNonNull(file.getOriginalFilename())).toUriString());
+            } else {
+                return new ResponseEntity<>(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to upload file!"), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to upload file!:-" + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }
