@@ -25,8 +25,8 @@ public class FileController {
             if (file.isEmpty()) {
                 return new ResponseEntity<>(new ErrorResponse(HttpStatus.NO_CONTENT, "No file selected!"), HttpStatus.NO_CONTENT);
             } else if (fileUploadHelper.uploadFile(file)) {
-//                return new ResponseEntity<>(new ErrorResponse(HttpStatus.OK,"File uploaded successfully!"),HttpStatus.OK);
-                return ResponseEntity.ok(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(Objects.requireNonNull(file.getOriginalFilename())).toUriString());
+                return new ResponseEntity<>(new ErrorResponse(HttpStatus.OK,"File uploaded successfully!"),HttpStatus.OK);
+//                return ResponseEntity.ok(ServletUriComponentsBuilder.fromCurrentContextPath().path("/images/").path(Objects.requireNonNull(file.getOriginalFilename())).toUriString());
             } else {
                 return new ResponseEntity<>(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to upload file!"), HttpStatus.INTERNAL_SERVER_ERROR);
             }

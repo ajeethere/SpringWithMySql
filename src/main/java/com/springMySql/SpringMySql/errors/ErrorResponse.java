@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class ErrorResponse {
 
     private HttpStatus status;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyyMMdd hh:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd hh:mm:ss")
     private LocalDateTime timeStamp;
     private String message;
 
