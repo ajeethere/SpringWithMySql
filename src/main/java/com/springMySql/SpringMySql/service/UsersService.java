@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class UsersService {
@@ -23,6 +24,10 @@ public class UsersService {
 
     public void deleteUser(Long id) {
         usersRepository.deleteById(id);
+    }
+
+    public Users loginValidation(String email, String password) {
+        return usersRepository.findByUsername(email);
     }
 
 }

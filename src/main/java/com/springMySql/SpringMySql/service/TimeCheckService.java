@@ -15,7 +15,7 @@ public class TimeCheckService {
     UserValidityService userValidityService;
 
     @Transactional
-    @Scheduled(fixedRate = 20000)
+    @Scheduled(fixedRate = 60000)
     public void updateDataBasedOnTime() {
         LocalDateTime currentTime = LocalDateTime.now();
         List<UserValidity> data = userValidityService.getUserValidityByValid();
