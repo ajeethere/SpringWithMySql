@@ -1,8 +1,10 @@
 package com.springMySql.SpringMySql.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,11 +20,9 @@ public class Users {
     @Column(nullable = false)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Addresses address;
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL)
+    private UserValidity userValidity;
 
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "fk_add_id")
-//    private List<Addresses> address=new ArrayList<>();
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Addresses> address=new ArrayList<>();
 }

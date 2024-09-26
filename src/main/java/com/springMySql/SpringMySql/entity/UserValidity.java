@@ -1,5 +1,7 @@
 package com.springMySql.SpringMySql.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -16,4 +18,18 @@ public class UserValidity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private int isValid;
+
+    @OneToOne
+    @JsonIgnore
+    private Users user;
+
+    @JsonProperty("user_id")
+    public Long getUserId() {
+        return user!=null?user.getId():null;
+    }
+
+    @JsonProperty("user_id")
+    public void setUserId(Long userId) {
+        user.setId(userId);
+    }
 }

@@ -19,19 +19,19 @@ public class AddressesController {
     AddressesService addressesService;
 
     @PostMapping
-    public ResponseEntity<?> addStudent(@RequestBody Addresses addresses) {
+    public ResponseEntity<?> addAddress(@RequestBody Addresses addresses) {
         addressesService.addStudent(addresses);
         return new ResponseEntity<>(addresses, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllStudents() {
+    public ResponseEntity<?> getAddresses() {
         List<Addresses> students = addressesService.getAllStudents();
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteStudent(@PathVariable Long id) {
+    public ResponseEntity<?> deleteAddress(@PathVariable Long id) {
         Optional<Addresses> old = addressesService.getStudentById(id);
         if (old.isPresent()) {
             addressesService.deleteStudent(id);
@@ -42,7 +42,7 @@ public class AddressesController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<?> getStudentById(@PathVariable Long id) {
+    public ResponseEntity<?> getAddressById(@PathVariable Long id) {
         Optional<Addresses> studentObj = addressesService.getStudentById(id);
         if (studentObj.isPresent()) {
             addressesService.deleteStudent(id);
@@ -53,7 +53,7 @@ public class AddressesController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<?> updateStudentById(@PathVariable Long id, @RequestBody Addresses addresses) {
+    public ResponseEntity<?> updateAddressById(@PathVariable Long id, @RequestBody Addresses addresses) {
         Optional<Addresses> old = addressesService.getStudentById(id);
         if (old.isPresent()) {
             if (!addresses.getAddressLine1().isEmpty()) {

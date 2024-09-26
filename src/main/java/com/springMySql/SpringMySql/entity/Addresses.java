@@ -1,6 +1,7 @@
 package com.springMySql.SpringMySql.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -14,7 +15,13 @@ public class Addresses {
     private String addressLine1;
     private String addressLine2;
 
-    @OneToOne(mappedBy = "address")
-    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
     private Users user;
+
+    @JsonProperty("user_id")
+    public Long getUserId() {
+        return user != null ? user.getId() : null;
+    }
 }
