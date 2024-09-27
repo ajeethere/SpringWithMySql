@@ -18,6 +18,10 @@ public class UsersService {
         usersRepository.save(user);
     }
 
+    public Optional<Users> getUserById(Long id) {
+        return usersRepository.findById(id);
+    }
+
     public List<Users> getAllUsers() {
         return usersRepository.findAll();
     }

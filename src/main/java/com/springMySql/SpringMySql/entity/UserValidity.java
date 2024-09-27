@@ -27,9 +27,4 @@ public class UserValidity {
     public Long getUserId() {
         return user!=null?user.getId():null;
     }
-
-    @JsonProperty("user_id")
-    public void setUserId(Long userId) {
-        user.setId(userId);
-    }
 }

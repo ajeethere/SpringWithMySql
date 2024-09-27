@@ -1,8 +1,11 @@
 package com.springMySql.SpringMySql.controller;
 
 import com.springMySql.SpringMySql.entity.Addresses;
+import com.springMySql.SpringMySql.entity.Users;
 import com.springMySql.SpringMySql.errors.ErrorResponse;
 import com.springMySql.SpringMySql.service.AddressesService;
+import com.springMySql.SpringMySql.service.UsersService;
+import com.springMySql.SpringMySql.tdos.TdoUserAdd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +21,23 @@ public class AddressesController {
     @Autowired
     AddressesService addressesService;
 
+    @Autowired
+    UsersService usersService;
+
     @PostMapping
-    public ResponseEntity<?> addAddress(@RequestBody Addresses addresses) {
-        addressesService.addStudent(addresses);
-        return new ResponseEntity<>(addresses, HttpStatus.OK);
+    public ResponseEntity<?> addAddress(@RequestBody TdoUserAdd tdoUserAdd) {
+        Optional<Users> user=usersService.getUserById(tdoUserAdd.getUserId());
+        if (user.isPresent()) {
+            Addresses addresses=new Addresses();
+            addresses.setAddressLine1(tdoUserAdd.getAddressLine1());
+            addresses.setAddressLine2(tdoUserAdd.getAddressLine2());
+            addresses.setUser(user.get());
+            addressesService.addStudent(addresses);
+            return new ResponseEntity<>(addresses, HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("User not found!",HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @GetMapping
